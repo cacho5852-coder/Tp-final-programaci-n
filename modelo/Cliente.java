@@ -1,15 +1,15 @@
-public class cliente{
+public class Cliente{
 private int codigo;
 private String nombre;
 private String telefono;
 private String zona;  
 
 
-public cliente(){
+public Cliente(){
 
 }
 
-public cliente(int codigo,String nombre, String telefono,String zona){
+public Cliente(int codigo,String nombre, String telefono,String zona){
 setCodigo(codigo);
 setNombre(nombre);
 setTelefono(telefono);
@@ -24,9 +24,9 @@ public void setCodigo(int codigo) {
 }
 public String getNombre() { return nombre; }
 
-    public void setNombre(String nombre) {
-        if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre no puede estar vacío.");
+  public void setNombre(String nombre) {
+     if (nombre == null || nombre.isBlank()) {
+        throw new IllegalArgumentException("El nombre no puede estar vacío.");
         }
         this.nombre = nombre.trim();
     }
