@@ -23,4 +23,4 @@ public class pedido {
         this.hora = hora;
         this.tipo = tipo;
     }
-
+}
