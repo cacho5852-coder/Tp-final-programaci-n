@@ -1,7 +1,8 @@
-import modelo.cliente;
+package app;
+
+import modelo.Cliente;
 import excepciones.AlmacenamientoLlenoException;
 import excepciones.ClienteNoEncontradoException;
-
 
 public class CityLink {
  private static final int MAX_CLIENTES = 50;   
