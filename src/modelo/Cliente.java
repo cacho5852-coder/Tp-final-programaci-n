@@ -1,3 +1,5 @@
+package modelo;
+
 public class Cliente{
 private int codigo;
 private String nombre;
@@ -29,6 +31,9 @@ public String getNombre() { return nombre; }
         throw new IllegalArgumentException("El nombre no puede estar vacío.");
         }
         this.nombre = nombre.trim();
+    }
+    public int getCodigo(){
+    return codigo;
     }
     public String getTelefono() { return telefono; }
 
