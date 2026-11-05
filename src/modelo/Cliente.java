@@ -1,41 +1,47 @@
 package modelo;
 
-public class Cliente{
-private int codigo;
-private String nombre;
-private String telefono;
-private String zona;  
+public class Cliente {
+    private int codigo;
+    private String nombre;
+    private String telefono;
+    private String zona;
 
+    public Cliente() {
 
-public Cliente(){
-
-}
-
-public Cliente(int codigo,String nombre, String telefono,String zona){
-setCodigo(codigo);
-setNombre(nombre);
-setTelefono(telefono);
-setZona(zona);
-}
-public int getcodigo(){return codigo;}
-public void setCodigo(int codigo) {
-    if (codigo <= 0){
-        throw new IllegalArgumentException("elcodigo debe ser mayor que cero");
     }
-    this.codigo = codigo;
-}
-public String getNombre() { return nombre; }
 
-  public void setNombre(String nombre) {
-     if (nombre == null || nombre.isBlank()) {
-        throw new IllegalArgumentException("El nombre no puede estar vacío.");
+    public Cliente(int codigo, String nombre, String telefono, String zona) {
+        setCodigo(codigo);
+        setNombre(nombre);
+        setTelefono(telefono);
+        setZona(zona);
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        if (codigo <= 0) {
+            throw new IllegalArgumentException("elcodigo debe ser mayor que cero");
+        }
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío.");
         }
         this.nombre = nombre.trim();
     }
-    public int getCodigo(){
-    return codigo;
+
+    public String getTelefono() {
+        return telefono;
     }
-    public String getTelefono() { return telefono; }
 
     public void setTelefono(String telefono) {
         if (telefono == null || telefono.isBlank()) {
@@ -44,7 +50,9 @@ public String getNombre() { return nombre; }
         this.telefono = telefono.trim();
     }
 
-    public String getZona() { return zona; }
+    public String getZona() {
+        return zona;
+    }
 
     public void setZona(String zona) {
         if (zona == null || zona.isBlank()) {
@@ -52,9 +60,10 @@ public String getNombre() { return nombre; }
         }
         this.zona = zona.trim();
     }
-@Override 
-public  String toString(){
-    return  "cliente [" + codigo + "]" + nombre + "- tel: " + telefono + " - zona: "+ zona;
- }
+
+    @Override
+    public String toString() {
+        return "cliente [" + codigo + "]" + nombre + "- tel: " + telefono + " - zona: " + zona;
+    }
 
 }
