@@ -5,11 +5,7 @@ import excepciones.AlmacenamientoLlenoException;
 import excepciones.ClienteNoEncontradoException;
 
 public class CityLink {
-<<<<<<< Updated upstream
     private static final int MAX_CLIENTES = 50;
-=======
- private static final int MAX_CLIENTES = 50;    
->>>>>>> Stashed changes
 
     private Cliente[] clientes = new Cliente[MAX_CLIENTES];
     private int cantClientes = 0;

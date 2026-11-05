@@ -1,3 +1,4 @@
+package app;
 
 public class pedido {
     private int codigo;
