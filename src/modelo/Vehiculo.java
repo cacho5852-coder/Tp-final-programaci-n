@@ -1,100 +1,102 @@
 package modelo;
 
-
+/**
+ * Clase abstracta raíz de la jerarquía de vehículos de CityLink.
+ * Define los datos comunes y obliga a cada subtipo a calcular su tiempo de entrega.
+ */
 public abstract class Vehiculo {
 
-    
     private String patente;
     private double capacidadKg;
     private double velocidadKmH;
     private double costoPorKm;
 
+/** Constructor vacío. Los atributos deben completarse con los setters. */
+    public Vehiculo() {
+   }
 
-    public Vehiculo(String patente, double capacidadKg,
-                    double velocidadKmH, double costoPorKm) {
-
+/**
+     * Constructor completo.
+     * @param patente patente del vehículo (no vacía)
+     * @param capacidadKg capacidad máxima en kg (mayor que 0)
+     * @param velocidadKmH velocidad promedio en km/h (mayor que 0)
+     * @param costoPorKm costo por km (mayor que 0)
+     * @throws IllegalArgumentException si algún dato es inválido
+     */
+    public Vehiculo(String patente, double capacidadKg, double velocidadKmH, double costoPorKm) {
         setPatente(patente);
         setCapacidadKg(capacidadKg);
         setVelocidadKmH(velocidadKmH);
         setCostoPorKm(costoPorKm);
     }
 
-    
-    public String getPatente() {
-        return patente;
+    /**
+     * Calcula el tiempo estimado de entrega en minutos (incluye el tiempo extra propio del vehículo).
+     * @param km distancia del pedido en km
+     * @return tiempo en minutos
+     */
+    public abstract double calcularTiempoEntrega(double km);
+
+/**
+     * Indica si el vehículo puede transportar el pedido (el peso no supera la capacidad).
+     * Las subclases pueden redefinirlo para agregar restricciones.
+     * @param pedido pedido a evaluar
+     * @return true si puede transportarlo
+     */
+    public boolean puedeTransportar(Pedido pedido) {
+        return pedido.getPesoKg() <= capacidadKg;
     }
 
-    
+    /**
+     * Tiempo de viaje sin extras: (distancia / velocidad) * 60.
+     * @param km distancia en km
+     * @return minutos de viaje
+     */
+    protected double calcularTiempoBase(double km) {
+        return (km / velocidadKmH) * 60;
+    }
+
+    public String getPatente() { return patente; }
+
     public void setPatente(String patente) {
         if (patente == null || patente.trim().isEmpty()) {
-            throw new IllegalArgumentException(
-                "La patente no puede estar vacia");
+            throw new IllegalArgumentException("La patente no puede estar vacía.");
         }
-        this.patente = patente.trim();
+        this.patente = patente.trim().toUpperCase();
     }
 
-    
-    
-    public double getCapacidadKg() {
-        return capacidadKg;
-    }
+    public double getCapacidadKg() { return capacidadKg; }
 
-    
     public void setCapacidadKg(double capacidadKg) {
-        if (!Double.isFinite(capacidadKg) || capacidadKg <= 0) {
-            throw new IllegalArgumentException(
-                "La capacidad debe ser mayor a cero");
+        if (capacidadKg <= 0) {
+            throw new IllegalArgumentException("La capacidad debe ser mayor que cero: " + capacidadKg);
         }
         this.capacidadKg = capacidadKg;
     }
 
-    
-    public double getVelocidadKmH() {
-        return velocidadKmH;
-    }
+    public double getVelocidadKmH() { return velocidadKmH; }
 
-    
     public void setVelocidadKmH(double velocidadKmH) {
-        if (!Double.isFinite(velocidadKmH) || velocidadKmH <= 0) {
-            throw new IllegalArgumentException(
-                "La velocidad debe ser mayor a cero");
+        if (velocidadKmH <= 0) {
+            throw new IllegalArgumentException("La velocidad debe ser mayor que cero: " + velocidadKmH);
         }
         this.velocidadKmH = velocidadKmH;
     }
 
-    
-    public double getCostoPorKm() {
-        return costoPorKm;
-    }
+    public double getCostoPorKm() { return costoPorKm; }
 
-    
     public void setCostoPorKm(double costoPorKm) {
-        if (!Double.isFinite(costoPorKm) || costoPorKm < 0) {
-            throw new IllegalArgumentException(
-                "El costo no puede ser negativo");
+        if (costoPorKm <= 0) {
+            throw new IllegalArgumentException("El costo por km debe ser mayor que cero: " + costoPorKm);
         }
         this.costoPorKm = costoPorKm;
     }
 
-    public abstract double calcularTiempoEntrega(double km);
-
-    
-    public boolean puedeTransportar(Pedido pedido) {
-
-        if (pedido == null) {
-            return false;
-        }
-
-        return pedido.getPesoKg() > 0
-                && pedido.getPesoKg() <= capacidadKg;
-    }
-
-    
     @Override
     public String toString() {
-        return "Patente: " + patente
-             + " | Capacidad: " + capacidadKg + " kg"
-             + " | Velocidad: " + velocidadKmH + " km/h"
-             + " | Costo por km: $" + costoPorKm;
+        return getClass().getSimpleName() + " [patente=" + patente + ", capacidad=" + capacidadKg
+                + " kg, velocidad=" + velocidadKmH + " km/h, costo/km=$" + costoPorKm + "]";
     }
 }
+
+    
