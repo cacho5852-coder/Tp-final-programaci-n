@@ -1,10 +1,11 @@
 package app;
 
-import java.util.Scanner;
-import modelo.Cliente;
 import excepciones.AlmacenamientoLlenoException;
 import excepciones.ClienteNoEncontradoException;
+import java.util.Scanner;
+import modelo.Cliente;
 
+/** menu de consola de CityLink: solo lectura por teclado y mensajes. */
 public class App {
     private static final Scanner sc = new Scanner(System.in);
     private static final CityLink gestor = new CityLink();
