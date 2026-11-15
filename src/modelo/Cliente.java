@@ -6,10 +6,11 @@ public class Cliente {
     private String telefono;
     private String zona;
 
+/** Constructor completo */
     public Cliente() {
 
     }
-
+/** constructor completo. */
     public Cliente(int codigo, String nombre, String telefono, String zona) {
         setCodigo(codigo);
         setNombre(nombre);
@@ -17,6 +18,8 @@ public class Cliente {
         setZona(zona);
     }
 
+
+    /**@return el codigo del cliente */
     public int getCodigo() {
         return codigo;
     }
@@ -27,7 +30,7 @@ public class Cliente {
         }
         this.codigo = codigo;
     }
-
+/**@return el nombre del cliente */
     public String getNombre() {
         return nombre;
     }
@@ -38,7 +41,7 @@ public class Cliente {
         }
         this.nombre = nombre.trim();
     }
-
+/** @return el telefono del cliente */
     public String getTelefono() {
         return telefono;
     }
@@ -49,7 +52,7 @@ public class Cliente {
         }
         this.telefono = telefono.trim();
     }
-
+/** @return la zona del cliente */
     public String getZona() {
         return zona;
     }
