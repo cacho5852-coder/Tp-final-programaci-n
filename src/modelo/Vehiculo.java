@@ -91,7 +91,19 @@ public abstract class Vehiculo {
         }
         this.costoPorKm = costoPorKm;
     }
+    /** Dos vehículos son iguales si tienen la misma patente (necesario para contains/indexOf/remove en listas). */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehiculo otro = (Vehiculo) o;
+        return patente != null && patente.equals(otro.patente);
+    }
 
+    @Override
+    public int hashCode() {
+        return patente == null ? 0 : patente.hashCode();
+    }
     @Override
     public String toString() {
         return getClass().getSimpleName() + " [patente=" + patente + ", capacidad=" + capacidadKg
