@@ -1,11 +1,11 @@
 package app;
 
-import excepciones.AlmacenamientoLlenoException;
 import excepciones.ClienteNoEncontradoException;
+import java.util.List;
 import java.util.Scanner;
 import modelo.Cliente;
 
-/** menu de consola de CityLink: solo lectura por teclado y mensajes. */
+/** Menú de consola de CityLink: solo lectura por teclado y mensajes. */
 public class App {
     private static final Scanner sc = new Scanner(System.in);
     private static final CityLink gestor = new CityLink();
@@ -14,18 +14,39 @@ public class App {
         int opcion = 0;
         while (opcion != 10) {
             System.out.println("\n=== CityLink ===");
-            System.out.println("1. Registrar cliente");
-            System.out.println("6. Buscar cliente");
+            System.out.println("1. Gestión de clientes");
             System.out.println("10. Salir");
+            opcion = leerEntero("Opción: ");
+            switch (opcion) {
+                case 1 -> menuClientes();
+                case 10 -> System.out.println("Hasta luego.");
+                default -> System.out.println("Opción no disponible todavía.");
+            }
+        }
+    }
+
+    private static void menuClientes() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("\n--- Gestión de clientes ---");
+            System.out.println("1. Alta de cliente");
+            System.out.println("2. Baja de cliente");
+            System.out.println("3. Buscar por código");
+            System.out.println("4. Buscar por nombre");
+            System.out.println("5. Listar clientes (ordenados por código)");
+            System.out.println("0. Volver");
             opcion = leerEntero("Opción: ");
             try {
                 switch (opcion) {
-                    case 1 -> registrarCliente();
-                    case 6 -> buscarCliente();
-                    case 10 -> System.out.println("Hasta luego.");
-                    default -> System.out.println("Opción no disponible todavía.");
+                    case 1 -> altaCliente();
+                    case 2 -> bajaCliente();
+                    case 3 -> System.out.println(gestor.buscarCliente(leerEntero("Código: ")));
+                    case 4 -> buscarPorNombre();
+                    case 5 -> listarClientes();
+                    case 0 -> { }
+                    default -> System.out.println("Opción inválida.");
                 }
-            } catch (AlmacenamientoLlenoException | ClienteNoEncontradoException e) {
+            } catch (ClienteNoEncontradoException e) {
                 System.out.println("Error: " + e.getMessage());
             } catch (IllegalArgumentException e) {
                 System.out.println("Dato inválido: " + e.getMessage());
@@ -35,7 +56,7 @@ public class App {
         }
     }
 
-    private static void registrarCliente() throws AlmacenamientoLlenoException {
+    private static void altaCliente() {
         int codigo = leerEntero("Código: ");
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
@@ -47,14 +68,24 @@ public class App {
         System.out.println("Cliente registrado.");
     }
 
-    private static void buscarCliente() throws ClienteNoEncontradoException {
-        System.out.print("Buscar por (1) código o (2) nombre: ");
-        String modo = sc.nextLine().trim();
-        if (modo.equals("1")) {
-            System.out.println(gestor.buscarCliente(leerEntero("Código: ")));
-        } else {
-            System.out.print("Nombre: ");
-            System.out.println(gestor.buscarCliente(sc.nextLine()));
+    private static void bajaCliente() throws ClienteNoEncontradoException {
+        gestor.eliminarCliente(leerEntero("Código a eliminar: "));
+        System.out.println("Cliente eliminado.");
+    }
+
+    private static void buscarPorNombre() throws ClienteNoEncontradoException {
+        System.out.print("Nombre: ");
+        System.out.println(gestor.buscarCliente(sc.nextLine()));
+    }
+
+    private static void listarClientes() {
+        List<Cliente> lista = gestor.listarClientes();
+        if (lista.isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+            return;
+        }
+        for (Cliente c : lista) {
+            System.out.println(c);
         }
     }
 
