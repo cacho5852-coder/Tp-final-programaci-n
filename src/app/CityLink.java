@@ -1,81 +1,84 @@
 package app;
 
-import modelo.Cliente;
-import excepciones.AlmacenamientoLlenoException;
+import algoritmos.Busqueda;
 import excepciones.ClienteNoEncontradoException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+import modelo.Cliente;
 
+/** El gestor de CityLink. Guarda los clientes en un árbol ordenado por código. */
 public class CityLink {
-    private static final int MAX_CLIENTES = 50;
 
-    private Cliente[] clientes = new Cliente[MAX_CLIENTES];
-    private int cantClientes = 0;
+    private final TreeMap<Integer, Cliente> clientes = new TreeMap<>();
 
+    /** Arranca el gestor ya con algunos clientes de prueba cargados. */
     public CityLink() {
         cargarDatosDePrueba();
     }
 
-    public void registrarCliente(Cliente c) throws AlmacenamientoLlenoException {
-        if (cantClientes == MAX_CLIENTES) {
-            throw new AlmacenamientoLlenoException("No hay lugar más disponible");
+    /**
+     * Agrega un cliente nuevo.
+     *
+     * @throws IllegalArgumentException si el cliente es nulo o ya hay otro con ese código
+     */
+    public void registrarCliente(Cliente c) {
+        if (c == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
         }
-        if (existeCodigo(c.getCodigo())) {
+        if (clientes.containsKey(c.getCodigo())) {
             throw new IllegalArgumentException("Ya existe un cliente con código " + c.getCodigo());
         }
-        clientes[cantClientes] = c;
-        cantClientes++;
+        clientes.put(c.getCodigo(), c);
     }
 
+    /**
+     * Busca un cliente por su código (lo resuelve el árbol).
+     *
+     * @throws ClienteNoEncontradoException si no hay ninguno con ese código
+     */
     public Cliente buscarCliente(int codigo) throws ClienteNoEncontradoException {
-        for (int i = 0; i < cantClientes; i++) {
-            if (clientes[i].getCodigo() == codigo) {
-                return clientes[i];
-            }
+        Cliente c = clientes.get(codigo);
+        if (c == null) {
+            throw new ClienteNoEncontradoException("No existe un cliente con código " + codigo);
         }
-        throw new ClienteNoEncontradoException("No existe un cliente con código " + codigo);
+        return c;
     }
 
+    /**
+     * Busca un cliente por su nombre, recorriendo la lista de uno en uno.
+     *
+     * @throws ClienteNoEncontradoException si no hay ninguno con ese nombre
+     */
     public Cliente buscarCliente(String nombre) throws ClienteNoEncontradoException {
-        for (int i = 0; i < cantClientes; i++) {
-            if (clientes[i].getNombre().equalsIgnoreCase(nombre)) {
-                return clientes[i];
-            }
+        Cliente c = Busqueda.buscarClientePorNombre(clientes.values(), nombre);
+        if (c == null) {
+            throw new ClienteNoEncontradoException("No existe un cliente llamado " + nombre);
         }
-        throw new ClienteNoEncontradoException("No existe un cliente llamado " + nombre);
+        return c;
     }
 
-
+    /**
+     * Borra un cliente.
+     *
+     * @throws ClienteNoEncontradoException si no hay ninguno con ese código
+     */
     public void eliminarCliente(int codigo) throws ClienteNoEncontradoException {
-        for (int i = 0; i < cantClientes; i++) {
-            if (clientes[i].getCodigo() == codigo) {
-                for (int j = i; j < cantClientes - 1; j++) {
-                    clientes[j] = clientes[j + 1];
-                }
-                clientes[cantClientes - 1] = null;
-                cantClientes--;
-                return;
-            }
+        if (clientes.remove(codigo) == null) {
+            throw new ClienteNoEncontradoException("No existe un cliente con código " + codigo);
         }
-        throw new ClienteNoEncontradoException("No existe un cliente con código " + codigo);
     }
 
-    private boolean existeCodigo(int codigo) {
-        for (int i = 0; i < cantClientes; i++) {
-            if (clientes[i].getCodigo() == codigo) {
-                return true;
-            }
-        }
-        return false;
+    /** @return todos los clientes, ya ordenados por código */
+    public List<Cliente> listarClientes() {
+        return new ArrayList<>(clientes.values());
     }
 
     private void cargarDatosDePrueba() {
-        try {
-            registrarCliente(new Cliente(1, "Ana Pérez", "2657-111111", "Centro"));
-            registrarCliente(new Cliente(2, "Luis Gómez", "2657-222222", "Norte"));
-            registrarCliente(new Cliente(3, "María Díaz", "2657-333333", "Sur"));
-            registrarCliente(new Cliente(4, "Carlos Ruiz", "2657-444444", "Este"));
-            registrarCliente(new Cliente(5, "Sofía Luna", "2657-555555", "Oeste"));
-        } catch (AlmacenamientoLlenoException e) {
-            System.out.println("Error al cargar datos de prueba: " + e.getMessage());
-        }
+        registrarCliente(new Cliente(1, "Ana Pérez", "2657-111111", "Centro"));
+        registrarCliente(new Cliente(2, "Luis Gómez", "2657-222222", "Norte"));
+        registrarCliente(new Cliente(3, "María Díaz", "2657-333333", "Sur"));
+        registrarCliente(new Cliente(4, "Carlos Ruiz", "2657-444444", "Este"));
+        registrarCliente(new Cliente(5, "Sofía Luna", "2657-555555", "Oeste"));
     }
 }
