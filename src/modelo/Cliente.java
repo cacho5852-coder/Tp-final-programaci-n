@@ -6,7 +6,7 @@ public class Cliente {
     private String telefono;
     private String zona;
 
-/** Constructor completo */
+/** Constructor vacio */
     public Cliente() {
 
     }
