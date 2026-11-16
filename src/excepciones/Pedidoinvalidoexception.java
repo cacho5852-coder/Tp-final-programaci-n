@@ -1,15 +1,8 @@
 package excepciones;
 
-
+/** Peso o distancia no positivos, destino vacío o código duplicado. */
 public class PedidoInvalidoException extends Exception {
-
-    private static final long serialVersionUID = 1L;
-
     public PedidoInvalidoException(String mensaje) {
         super(mensaje);
-    }
-
-    public PedidoInvalidoException(String mensaje, Throwable causa) {
-        super(mensaje, causa);
     }
 }
