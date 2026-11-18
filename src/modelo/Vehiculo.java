@@ -1,8 +1,8 @@
 package modelo;
 
 /**
- * Clase abstracta raíz de la jerarquía de vehículos de CityLink.
- * Define los datos comunes y obliga a cada subtipo a calcular su tiempo de entrega.
+ * Clase base de los vehículos. Es abstracta porque no existe un vehículo "genérico",
+ * siempre es bicicleta, moto o camioneta.
  */
 public abstract class Vehiculo {
 
@@ -11,18 +11,11 @@ public abstract class Vehiculo {
     private double velocidadKmH;
     private double costoPorKm;
 
-/** Constructor vacío. Los atributos deben completarse con los setters. */
+    /** Crea un vehículo sin datos (se completan con los setters). */
     public Vehiculo() {
-   }
+    }
 
-/**
-     * Constructor completo.
-     * @param patente patente del vehículo (no vacía)
-     * @param capacidadKg capacidad máxima en kg (mayor que 0)
-     * @param velocidadKmH velocidad promedio en km/h (mayor que 0)
-     * @param costoPorKm costo por km (mayor que 0)
-     * @throws IllegalArgumentException si algún dato es inválido
-     */
+    /** Crea un vehículo con todos sus datos; pasan por los setters para validarlos. */
     public Vehiculo(String patente, double capacidadKg, double velocidadKmH, double costoPorKm) {
         setPatente(patente);
         setCapacidadKg(capacidadKg);
@@ -30,33 +23,22 @@ public abstract class Vehiculo {
         setCostoPorKm(costoPorKm);
     }
 
-    /**
-     * Calcula el tiempo estimado de entrega en minutos (incluye el tiempo extra propio del vehículo).
-     * @param km distancia del pedido en km
-     * @return tiempo en minutos
-     */
+    /** Devuelve el tiempo de entrega en minutos. Cada vehículo lo calcula a su manera. */
     public abstract double calcularTiempoEntrega(double km);
 
-/**
-     * Indica si el vehículo puede transportar el pedido (el peso no supera la capacidad).
-     * Las subclases pueden redefinirlo para agregar restricciones.
-     * @param pedido pedido a evaluar
-     * @return true si puede transportarlo
-     */
+    /** Devuelve true si el peso del pedido entra en la capacidad del vehículo. */
     public boolean puedeTransportar(Pedido pedido) {
         return pedido.getPesoKg() <= capacidadKg;
     }
 
-    /**
-     * Tiempo de viaje sin extras: (distancia / velocidad) * 60.
-     * @param km distancia en km
-     * @return minutos de viaje
-     */
+    // tiempo de viaje sin el extra de cada vehículo
     protected double calcularTiempoBase(double km) {
         return (km / velocidadKmH) * 60;
     }
 
-    public String getPatente() { return patente; }
+    public String getPatente() {
+        return patente;
+    }
 
     public void setPatente(String patente) {
         if (patente == null || patente.trim().isEmpty()) {
@@ -65,7 +47,9 @@ public abstract class Vehiculo {
         this.patente = patente.trim().toUpperCase();
     }
 
-    public double getCapacidadKg() { return capacidadKg; }
+    public double getCapacidadKg() {
+        return capacidadKg;
+    }
 
     public void setCapacidadKg(double capacidadKg) {
         if (capacidadKg <= 0) {
@@ -74,7 +58,9 @@ public abstract class Vehiculo {
         this.capacidadKg = capacidadKg;
     }
 
-    public double getVelocidadKmH() { return velocidadKmH; }
+    public double getVelocidadKmH() {
+        return velocidadKmH;
+    }
 
     public void setVelocidadKmH(double velocidadKmH) {
         if (velocidadKmH <= 0) {
@@ -83,7 +69,9 @@ public abstract class Vehiculo {
         this.velocidadKmH = velocidadKmH;
     }
 
-    public double getCostoPorKm() { return costoPorKm; }
+    public double getCostoPorKm() {
+        return costoPorKm;
+    }
 
     public void setCostoPorKm(double costoPorKm) {
         if (costoPorKm <= 0) {
@@ -91,7 +79,8 @@ public abstract class Vehiculo {
         }
         this.costoPorKm = costoPorKm;
     }
-    /** Dos vehículos son iguales si tienen la misma patente (necesario para contains/indexOf/remove en listas). */
+
+    // dos vehículos son iguales si tienen la misma patente (así contains() funciona en las listas)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,11 +93,11 @@ public abstract class Vehiculo {
     public int hashCode() {
         return patente == null ? 0 : patente.hashCode();
     }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " [patente=" + patente + ", capacidad=" + capacidadKg
                 + " kg, velocidad=" + velocidadKmH + " km/h, costo/km=$" + costoPorKm + "]";
     }
 }
-
     
