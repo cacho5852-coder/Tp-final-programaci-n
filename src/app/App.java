@@ -58,7 +58,7 @@ public class App {
         }
     }
 
-    private static void altaCliente() {
+    private static void altaCliente() throws ClienteInvalidoException {
         int codigo = leerEntero("Código: ");
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
