@@ -23,7 +23,7 @@ public class CityLink {
      *
      * @throws ClienteInvalidoException si el cliente es nulo o ya hay otro con ese código
      */
-    public void ClienteInvalidoException(Cliente c) throws ClienteInvalidoException {
+    public void registrarCliente(Cliente c) throws ClienteInvalidoException {
         if (c == null) {
             throw new ClienteInvalidoException("El cliente no puede ser nulo.");
         }

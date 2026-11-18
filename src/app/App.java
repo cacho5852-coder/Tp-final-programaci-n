@@ -1,5 +1,6 @@
 package app;
 
+
 import excepciones.ClienteInvalidoException;
 import excepciones.ClienteNoEncontradoException;
 import java.util.List;
@@ -49,8 +50,8 @@ public class App {
                 }
             } catch (ClienteNoEncontradoException e) {
                 System.out.println("Error: " + e.getMessage());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Dato inválido: " + e.getMessage());
+            } catch (ClienteInvalidoException e) {
+             System.out.println("Dato inválido: " + e.getMessage());
             } finally {
                 System.out.println("(operación finalizada)");
             }
