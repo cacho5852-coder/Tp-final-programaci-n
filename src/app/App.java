@@ -1,5 +1,6 @@
 package app;
 
+import excepciones.ClienteInvalidoException;
 import excepciones.ClienteNoEncontradoException;
 import java.util.List;
 import java.util.Scanner;
