@@ -22,54 +22,40 @@ public class Cliente {
     }
 
 
-    /**@return el codigo del cliente */
-    public int getCodigo() {
-        return codigo;
+  /** @throws ClienteInvalidoException si el código no es mayor que cero */
+public void setCodigo(int codigo) throws ClienteInvalidoException {
+    if (codigo <= 0) {
+        throw new ClienteInvalidoException("El código debe ser mayor que cero.");
     }
+    this.codigo = codigo;
+}
 
-    public void setCodigo(int codigo) {
-        if (codigo <= 0) {
-            throw new IllegalArgumentException("elcodigo debe ser mayor que cero");
-        }
-        this.codigo = codigo;
+/** @throws ClienteInvalidoException si el nombre está vacío */
+public void setNombre(String nombre) throws ClienteInvalidoException {
+    if (nombre == null || nombre.isBlank()) {
+        throw new ClienteInvalidoException("El nombre no puede estar vacío.");
     }
-/**@return el nombre del cliente */
-    public String getNombre() {
-        return nombre;
-    }
+    this.nombre = nombre.trim();
+}
 
-    public void setNombre(String nombre) {
-        if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre no puede estar vacío.");
-        }
-        this.nombre = nombre.trim();
+/** @throws ClienteInvalidoException si el teléfono está vacío */
+public void setTelefono(String telefono) throws ClienteInvalidoException {
+    if (telefono == null || telefono.isBlank()) {
+        throw new ClienteInvalidoException("El teléfono no puede estar vacío.");
     }
-/** @return el telefono del cliente */
-    public String getTelefono() {
-        return telefono;
-    }
+    this.telefono = telefono.trim();
+}
 
-    public void setTelefono(String telefono) {
-        if (telefono == null || telefono.isBlank()) {
-            throw new IllegalArgumentException("El teléfono no puede estar vacío.");
-        }
-        this.telefono = telefono.trim();
+/** @throws ClienteInvalidoException si la zona está vacía */
+public void setZona(String zona) throws ClienteInvalidoException {
+    if (zona == null || zona.isBlank()) {
+        throw new ClienteInvalidoException("La zona no puede estar vacía.");
     }
-/** @return la zona del cliente */
-    public String getZona() {
-        return zona;
-    }
+    this.zona = zona.trim();
+}
 
-    public void setZona(String zona) {
-        if (zona == null || zona.isBlank()) {
-            throw new IllegalArgumentException("La zona no puede estar vacía.");
-        }
-        this.zona = zona.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "cliente [" + codigo + "]" + nombre + "- tel: " + telefono + " - zona: " + zona;
-    }
-
+  @Override
+public String toString() {
+    return "Cliente [" + codigo + "] " + nombre + " - tel: " + telefono + " - zona: " + zona;
+}
 }

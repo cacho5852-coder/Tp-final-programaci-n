@@ -21,14 +21,14 @@ public class CityLink {
     /**
      * Agrega un cliente nuevo.
      *
-     * @throws IllegalArgumentException si el cliente es nulo o ya hay otro con ese código
+     * @throws ClienteInvalidoException si el cliente es nulo o ya hay otro con ese código
      */
-    public void registrarCliente(Cliente c) throws ClienteInvalidoException {
+    public void ClienteInvalidoException(Cliente c) throws ClienteInvalidoException {
         if (c == null) {
-            throw new IllegalArgumentException("El cliente no puede ser nulo.");
+            throw new ClienteInvalidoException("El cliente no puede ser nulo.");
         }
         if (clientes.containsKey(c.getCodigo())) {
-            throw new IllegalArgumentException("Ya existe un cliente con código " + c.getCodigo());
+            throw new ClienteInvalidoException("Ya existe un cliente con código " + c.getCodigo());
         }
         clientes.put(c.getCodigo(), c);
     }
@@ -75,11 +75,21 @@ public class CityLink {
         return new ArrayList<>(clientes.values());
     }
 
-    private void cargarDatosDePrueba() {
+    public CityLink() {
+    try {
+        cargarDatosDePrueba();
+    } catch (ClienteInvalidoException e) {
+        throw new IllegalStateException("Datos de prueba inválidos: " + e.getMessage(), e);
+    }
+}      private void cargarDatosDePrueba() throws ClienteInvalidoException {
         registrarCliente(new Cliente(1, "Ana Pérez", "2657-111111", "Centro"));
+     
         registrarCliente(new Cliente(2, "Luis Gómez", "2657-222222", "Norte"));
+      
         registrarCliente(new Cliente(3, "María Díaz", "2657-333333", "Sur"));
+       
         registrarCliente(new Cliente(4, "Carlos Ruiz", "2657-444444", "Este"));
+     
         registrarCliente(new Cliente(5, "Sofía Luna", "2657-555555", "Oeste"));
     }
 }
