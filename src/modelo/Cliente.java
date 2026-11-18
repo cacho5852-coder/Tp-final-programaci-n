@@ -1,5 +1,7 @@
 package modelo;
 
+import excepciones.ClienteInvalidoException;
+
 public class Cliente {
     private int codigo;
     private String nombre;
@@ -10,8 +12,9 @@ public class Cliente {
     public Cliente() {
 
     }
-/** constructor completo. */
-    public Cliente(int codigo, String nombre, String telefono, String zona) {
+/** constructor completo */
+    public Cliente(int codigo, String nombre, String telefono, String zona)
+    throws ClienteInvalidoException  {
         setCodigo(codigo);
         setNombre(nombre);
         setTelefono(telefono);
