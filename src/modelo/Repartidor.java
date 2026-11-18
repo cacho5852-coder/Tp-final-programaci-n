@@ -136,11 +136,17 @@ public class Repartidor implements Rastreable, Facturable {
                 "El repartidor " + legajo + " ya tiene el máximo de pedidos asignados"
             );
         }
-        if (!vehiculo.puedeTransportar(pedido)) {
-            throw new CapacidadExcedidaException(
-                "El vehículo no puede transportar el pedido " + pedido.getCodigo()
-            );
-        }
+        if (pedido.getPesoKg() > vehiculo.getCapacidadKg()) {
+    throw new CapacidadExcedidaException(
+        "El pedido " + pedido.getCodigo() + " pesa " + pedido.getPesoKg()
+        + " kg y el vehículo admite " + vehiculo.getCapacidadKg() + " kg.");
+    }
+    if (!vehiculo.puedeTransportar(pedido)) {
+    throw new CapacidadExcedidaException(
+        "El pedido " + pedido.getCodigo() + " no puede ir en este vehículo "
+        + "(los frágiles no van en bicicleta)."
+    );
+}
 
         pedido.asignarVehiculo(vehiculo);
         pedidos[cantidadPedidos++] = pedido;

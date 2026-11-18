@@ -4,7 +4,7 @@ import excepciones.PedidoInvalidoException;
 
 /** Pedido con recargo fijo de $800. */
 public class PedidoFragil extends Pedido {
-
+public static final double RECARGO_FIJO = 800;
     public PedidoFragil() {
         super();
     }
@@ -16,6 +16,6 @@ public class PedidoFragil extends Pedido {
 
     @Override
     public double calcularCosto(Vehiculo vehiculo) {
-        return costoSinRecargo(vehiculo) + 800;
+      return costoSinRecargo(vehiculo) + RECARGO_FIJO;
     }
 }

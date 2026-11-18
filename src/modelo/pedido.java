@@ -126,7 +126,12 @@ public abstract class Pedido implements Rastreable, Facturable {
 
     public LocalDateTime getFechaHora() { return fechaHora; }
 
-    public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
+    public void setFechaHora(LocalDateTime fechaHora) throws PedidoInvalidoException {
+    if (fechaHora == null) {
+        throw new PedidoInvalidoException("La fecha y hora no pueden ser nulas.");
+    }
+    this.fechaHora = fechaHora;
+    }
 
     public EstadoPedido getEstado() { return estado; }
 
@@ -134,6 +139,22 @@ public abstract class Pedido implements Rastreable, Facturable {
 
     public void setVehiculoAsignado(Vehiculo vehiculoAsignado) {
         this.vehiculoAsignado = vehiculoAsignado;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    }
+    return codigo == ((Pedido) obj).codigo;
+}
+
+    @Override
+    public int hashCode() {
+    return Integer.hashCode(codigo);
     }
 
     @Override
