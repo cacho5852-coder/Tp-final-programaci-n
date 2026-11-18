@@ -21,6 +21,25 @@ public class Cliente {
         setZona(zona);
     }
 
+        /** @return el código del cliente */
+    public int getCodigo() {
+        return codigo;
+    }
+
+    /** @return el nombre del cliente */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /** @return el teléfono del cliente */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /** @return la zona del cliente */
+    public String getZona() {
+        return zona;
+    }
 
   /** @throws ClienteInvalidoException si el código no es mayor que cero */
 public void setCodigo(int codigo) throws ClienteInvalidoException {
@@ -57,5 +76,28 @@ public void setZona(String zona) throws ClienteInvalidoException {
   @Override
 public String toString() {
     return "Cliente [" + codigo + "] " + nombre + " - tel: " + telefono + " - zona: " + zona;
+}
+/**
+ * Dos clientes son iguales si tienen el mismo código.
+ *
+ * @param obj el objeto a comparar
+ * @return true si es un Cliente con el mismo código
+ */
+@Override
+public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    }
+    Cliente otro = (Cliente) obj;
+    return codigo == otro.codigo;
+}
+
+/** @return el hash calculado a partir del código (consistente con equals) */
+@Override
+public int hashCode() {
+    return Integer.hashCode(codigo);
 }
 }
