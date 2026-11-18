@@ -4,7 +4,7 @@ import excepciones.PedidoInvalidoException;
 
 /** Pedido con 50% de recargo. */
 public class PedidoUrgente extends Pedido {
-
+public static final double RECARGO = 1.5;
     public PedidoUrgente() {
         super();
     }
@@ -16,6 +16,7 @@ public class PedidoUrgente extends Pedido {
 
     @Override
     public double calcularCosto(Vehiculo vehiculo) {
-        return costoSinRecargo(vehiculo) * 1.5;
+       return costoSinRecargo(vehiculo) * RECARGO;
     }
+    
 }
