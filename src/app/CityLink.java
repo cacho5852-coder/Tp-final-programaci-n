@@ -1,6 +1,7 @@
 package app;
 
 import algoritmos.Busqueda;
+import excepciones.ClienteInvalidoException;
 import excepciones.ClienteNoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class CityLink {
      *
      * @throws IllegalArgumentException si el cliente es nulo o ya hay otro con ese código
      */
-    public void registrarCliente(Cliente c) {
+    public void registrarCliente(Cliente c) throws ClienteInvalidoException {
         if (c == null) {
             throw new IllegalArgumentException("El cliente no puede ser nulo.");
         }
