@@ -15,6 +15,11 @@ public static final double RECARGO_FIJO = 800;
     }
 
     @Override
+    public boolean esFragil() {
+    return true;
+    }
+
+    @Override
     public double calcularCosto(Vehiculo vehiculo) {
       return costoSinRecargo(vehiculo) + RECARGO_FIJO;
     }

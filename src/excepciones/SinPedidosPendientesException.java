@@ -1,9 +1,16 @@
 package excepciones;
 
-/** Se lanza cuando los datos de un pedido son inválidos (peso, distancia, destino, código repetido...). */
-public class PedidoInvalidoException extends Exception {
+/**
+ * Excepcion que se lanza cuando no hay pedidos pendientes
+ * para procesar en el sistema.
+ */
+public class SinPedidosPendientesException extends Exception {
 
-    public PedidoInvalidoException(String mensaje) {
+    public SinPedidosPendientesException() {
+        super("No hay pedidos pendientes para procesar.");
+    }
+
+    public SinPedidosPendientesException(String mensaje) {
         super(mensaje);
     }
 }
