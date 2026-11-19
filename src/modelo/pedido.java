@@ -62,6 +62,8 @@ public abstract class Pedido implements Rastreable, Facturable {
         this.estado = nuevo;
     }
 
+    public boolean esFragil() { return true; }
+
     // ---- Rastreable ----
     @Override
     public String obtenerEstadoActual() {

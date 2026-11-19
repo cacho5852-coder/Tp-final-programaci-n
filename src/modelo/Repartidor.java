@@ -148,7 +148,7 @@ public class Repartidor implements Rastreable, Facturable {
     );
 }
 
-        pedido.asignarVehiculo(vehiculo);
+        pedido.setVehiculoAsignado(vehiculo);
         pedidos[cantidadPedidos++] = pedido;
     }
 
