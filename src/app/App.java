@@ -12,20 +12,52 @@ public class App {
     private static final Scanner sc = new Scanner(System.in);
     private static final CityLink gestor = new CityLink();
 
-    public static void main(String[] args) {
-        int opcion = 0;
-        while (opcion != 10) {
-            System.out.println("\n=== CityLink ===");
-            System.out.println("1. Gestión de clientes");
-            System.out.println("10. Salir");
-            opcion = leerEntero("Opción: ");
-            switch (opcion) {
-                case 1 -> menuClientes();
-                case 10 -> System.out.println("Hasta luego.");
-                default -> System.out.println("Opción no disponible todavía.");
-            }
+
+public static void main(String[] args) {
+    int opcion = 0;
+
+    while (opcion != 10) {
+
+        System.out.println("\n--- CITYLINK ---");
+        System.out.println("1. Gestion de clientes");
+        System.out.println("2. Gestion de repartidores");
+        System.out.println("3. Registrar pedido");
+        System.out.println("4. Atender pedido");
+        System.out.println("5. Registrar entrega");
+        System.out.println("6. Deshacer ultima operacion");
+        System.out.println("7. Ordenar y listar pedidos");
+        System.out.println("8. Buscar pedido");
+        System.out.println("9. Intercalar pedidos");
+        System.out.println("10. Salir");
+
+        opcion = leerEntero("Ingrese una opcion: ");
+
+        switch (opcion) {
+
+            case 1 -> menuClientes();
+
+            case 2 -> System.out.println("Gestion de repartidores.");
+
+            case 3 -> System.out.println("Registrar pedido.");
+
+            case 4 -> System.out.println("Atender pedido.");
+
+            case 5 -> System.out.println("Registrar entrega.");
+
+            case 6 -> System.out.println("Deshacer operacion.");
+
+            case 7 -> System.out.println("Ordenar pedidos.");
+
+            case 8 -> System.out.println("Buscar pedido.");
+
+            case 9 -> System.out.println("Intercalar pedidos.");
+
+            case 10 -> System.out.println("Hasta luego.");
+
+            default -> System.out.println("Opcion incorrecta.");
         }
     }
+}
 
     private static void menuClientes() {
         int opcion = -1;
