@@ -142,7 +142,9 @@ public abstract class Pedido implements Rastreable, Facturable {
     public void setVehiculoAsignado(Vehiculo vehiculoAsignado) {
         this.vehiculoAsignado = vehiculoAsignado;
     }
-
+    public void restaurarEstado(EstadoPedido estado) {
+        this.estado = estado;
+    }
     @Override
     public boolean equals(Object obj) {
     if (this == obj) {

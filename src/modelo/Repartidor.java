@@ -176,7 +176,17 @@ public class Repartidor implements Rastreable, Facturable {
         }
         return false;
     }
-
+    /**
+     * @return el pedido quitado, o null si no tenía pedidos
+     */
+    public Pedido quitarUltimoPedido() {
+        if (cantidadPedidos == 0) {
+            return null;
+        }
+        Pedido p = pedidos[--cantidadPedidos];
+        pedidos[cantidadPedidos] = null;
+        return p;
+    }
     @Override
     public String obtenerEstadoActual() {
         return "Legajo " + legajo + ": " + cantidadPedidos + " pedidos a cargo";
